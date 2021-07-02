@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   post "/sessions" => "sessions#create"
 
   get "bookings" => "bookings#index"
-  
+  post "/bookings" => "bookings#create"
+
 end
