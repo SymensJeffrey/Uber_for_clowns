@@ -9,7 +9,24 @@ class BookingsController < ApplicationController
   end
 
   def create
-    render json: {message: "hello"}
+
+    if current_user
+      booking = Booking.new(
+        user_id:current_user.id,
+        clown_id:params[:clown_id],
+        date:params[:date],
+        time:params[:time],
+        price:params[:price]
+      )
+      if booking.save
+        render json: booking.as_json
+      else
+        render json: {errors: booking.errors.full_messages}, status: :unprocessable_entity
+      end
+    else
+      render json: [], status: :unauthorized
+    end
+  
   end
   
 
